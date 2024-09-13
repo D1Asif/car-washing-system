@@ -23,6 +23,7 @@ const loginUser = async (payload: TLoginUser) => {
 
     const jwtPayload = {
         email: user.email,
+        role: user.role
     }
 
     const token = createToken(jwtPayload, config.jwt_secret as string, config.jwt_expires_in as string);
