@@ -31,7 +31,18 @@ const getAService = catchAsync(async (req, res) => {
 })
 
 const getAllServices = catchAsync(async (req, res) => {
+    const result = await ServiceServices.getAllServicesFromDB();
 
+    if (!result.length) {
+        throw new AppError(httpStatus.NOT_FOUND, "No data found!")
+    }
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Services retrieved successfully",
+        data: result
+    });
 })
 
 const updateAService = catchAsync(async (req, res) => {
