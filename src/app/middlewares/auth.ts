@@ -11,7 +11,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
         const authHeader = req?.headers?.authorization;
 
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            throw new AppError(httpStatus.UNAUTHORIZED, "Authentication failure!")
+            throw new AppError(httpStatus.UNAUTHORIZED, "You have no access to this route!")
         }
 
         const token = authHeader.split(" ")[1];
@@ -32,7 +32,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
         }
 
         if (requiredRoles.length && !requiredRoles.includes(user.role)) {
-            throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized")
+            throw new AppError(httpStatus.UNAUTHORIZED, "You have no access to this route!")
         }
 
         req.user = decoded as JwtPayload;
