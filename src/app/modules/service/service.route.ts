@@ -8,9 +8,9 @@ const router = express.Router();
 
 router.post("/", auth('admin'), validateRequest(ServiceValidations.createServiceValidationSchema), ServiceControllers.createService);
 
-router.get("/:id", );
+router.get("/:id", ServiceControllers.getAService);
 
-router.get("/", );
+router.get("/", ServiceControllers.getAllServices);
 
 router.put("/:id", );
 
