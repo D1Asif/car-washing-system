@@ -46,7 +46,14 @@ const getAllServices = catchAsync(async (req, res) => {
 })
 
 const updateAService = catchAsync(async (req, res) => {
+    const result = await ServiceServices.updateAServiceIntoDB(req.params?.id, req.body)
 
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Service updated successfully",
+        data: result
+    });
 })
 
 const deleteAService = catchAsync(async (req, res) => {

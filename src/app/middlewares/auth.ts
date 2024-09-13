@@ -18,7 +18,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
 
         const decoded = jwt.verify(token, config.jwt_secret as string) as JwtPayload;
 
-        const { email, role } = decoded;
+        const { email } = decoded;
 
         // check if the user exists
         const user = await User.isUserExistByEmail(email);

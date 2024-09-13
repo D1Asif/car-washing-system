@@ -12,7 +12,7 @@ router.get("/:id", ServiceControllers.getAService);
 
 router.get("/", ServiceControllers.getAllServices);
 
-router.put("/:id", );
+router.put("/:id", auth('admin'), validateRequest(ServiceValidations.updateServiceValidationSchema), ServiceControllers.updateAService);
 
 router.delete("/:id", );
 
