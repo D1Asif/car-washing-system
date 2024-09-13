@@ -14,6 +14,6 @@ router.get("/", ServiceControllers.getAllServices);
 
 router.put("/:id", auth('admin'), validateRequest(ServiceValidations.updateServiceValidationSchema), ServiceControllers.updateAService);
 
-router.delete("/:id", );
+router.delete("/:id", auth('admin'), ServiceControllers.deleteAService);
 
 export const ServiceRoutes = router;

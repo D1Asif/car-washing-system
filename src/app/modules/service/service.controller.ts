@@ -16,7 +16,7 @@ const createService = catchAsync(async (req, res) => {
 })
 
 const getAService = catchAsync(async (req, res) => {
-    const result = await ServiceServices.getAServiceByIdFromDB(req.params?.id);
+    const result = await ServiceServices.getAServiceByIdFromDB(req.params.id);
 
     if (!result) {
         throw new AppError(httpStatus.NOT_FOUND, "No data found!")
@@ -46,7 +46,7 @@ const getAllServices = catchAsync(async (req, res) => {
 })
 
 const updateAService = catchAsync(async (req, res) => {
-    const result = await ServiceServices.updateAServiceIntoDB(req.params?.id, req.body)
+    const result = await ServiceServices.updateAServiceIntoDB(req.params.id, req.body)
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -57,7 +57,14 @@ const updateAService = catchAsync(async (req, res) => {
 })
 
 const deleteAService = catchAsync(async (req, res) => {
+    const result = await ServiceServices.deleteServiceFromDB(req.params.id);
 
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Service deleted successfully",
+        data: result
+    });
 });
 
 export const ServiceControllers = {

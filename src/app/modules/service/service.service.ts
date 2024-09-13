@@ -24,10 +24,26 @@ const updateAServiceIntoDB = async (id: string, payload: Partial<TService>) => {
     if (!service) {
         throw new AppError(httpStatus.NOT_FOUND, "Service not found");
     }
-    
+
     const updatedService = await Service.findByIdAndUpdate(
         id,
         payload,
+        { new: true }
+    )
+
+    return updatedService;
+}
+
+const deleteServiceFromDB = async (id: string) => {
+    const service = await Service.findById(id);
+
+    if (!service) {
+        throw new AppError(httpStatus.NOT_FOUND, "Service not found");
+    }
+
+    const updatedService = await Service.findByIdAndUpdate(
+        id,
+        {isDeleted: true},
         { new: true }
     )
 
@@ -38,5 +54,6 @@ export const ServiceServices = {
     createServiceIntoDB,
     getAServiceByIdFromDB,
     getAllServicesFromDB,
-    updateAServiceIntoDB
+    updateAServiceIntoDB,
+    deleteServiceFromDB
 }
