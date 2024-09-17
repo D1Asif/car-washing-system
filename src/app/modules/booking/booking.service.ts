@@ -5,6 +5,7 @@ import { TBooking } from "./booking.interface";
 import { Booking } from "./booking.model";
 import { Slot } from "../slot/slot.model";
 import mongoose from "mongoose";
+import { User } from "../user/user.model";
 
 const createBookingIntoDB = async (payload: TBooking) => {
     const service = await Service.findById(payload.service);
@@ -68,7 +69,22 @@ const getAllBookingsFromDB = async () => {
     return bookings;
 }
 
+const getUserBookingsFromDB = async (userEmail: string) => {
+    const user = await User.findOne({email: userEmail});
+
+    if (!user) {
+        throw new AppError(httpStatus.NOT_FOUND, "User not found!");
+    }
+
+    const userBookings = await Booking.find({customer: user._id})
+                            .populate("service")
+                            .populate("slot");
+
+    return userBookings;
+}
+
 export const BookingServices = {
     createBookingIntoDB,
-    getAllBookingsFromDB
+    getAllBookingsFromDB,
+    getUserBookingsFromDB
 }
