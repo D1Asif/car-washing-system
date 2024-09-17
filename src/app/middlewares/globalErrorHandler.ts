@@ -7,6 +7,7 @@ import handleMongoValidationError from "../errors/handleValidationError";
 import handleDuplicateError from "../errors/handleDuplicateError";
 import AppError from "../errors/AppError";
 import handleCastError from "../errors/handleCastError";
+import httpStatus from "http-status";
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     // default values
@@ -40,6 +41,15 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
         statusCode = simplifiedError.statusCode;
         message = simplifiedError.message;
         errorSources = simplifiedError.errorSources;
+    } else if (err?.name === "TokenExpiredError" || err?.name === "JsonWebTokenError") {
+        statusCode = httpStatus.UNAUTHORIZED;
+        message = "Authorization failure";
+        errorSources = errorSources = [
+            {
+                path: '',
+                message: err.message
+            }
+        ]
     } else if (err instanceof AppError) {
         statusCode = err.statusCode;
         message = err.message;
@@ -55,7 +65,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
         success: false,
         message,
         errorSources,
-        // err,
+        err,
         stack: config.node_env === "development" ? err.stack : null
     })
 };

@@ -39,7 +39,9 @@ serviceSchema.pre('findOne', function (next) {
 })
 
 serviceSchema.pre('aggregate', function(next) {
-    this.pipeline().unshift({$match: {isDeleted: {$ne: true}}})
+    this.pipeline().unshift({$match: {isDeleted: {$ne: true}}});
+
+    next();
 })
 
 export const Service = model<TService>('Service', serviceSchema);
