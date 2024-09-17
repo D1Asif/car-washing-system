@@ -701,3 +701,11 @@ tZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_a
     ]
 }
 ```
+
+## How to run
+The API is deployed in vercel. Use can simply use the link: [Car Washing System API](https://car-washing-system-lyart.vercel.app/)
+
+If you want to run locally:
+1. Clone this repo to your local machine.
+2. Run `npm install` command in the command line to install the packages
+3. Then run `npm run start:dev` to start the server.
