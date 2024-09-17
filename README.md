@@ -124,7 +124,7 @@ Typescipt, Express, MongoDB, Mongoose, Zod, Vercel for deployment
         "role": "admin",
         "address": "123 Main Street, City, Country",
         "createdAt": "2024-06-15T12:00:00Z",
-        "updatedAt": "2024-06-15T12:00:00Z
+        "updatedAt": "2024-06-15T12:00:00Z"
     }
 }
 ```
