@@ -69,7 +69,7 @@ var globalErrorHandler = function (err, req, res, next) {
         success: false,
         message: message,
         errorSources: errorSources,
-        err: err,
+        // err,
         stack: config_1.default.node_env === "development" ? err.stack : null
     });
 };
