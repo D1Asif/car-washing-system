@@ -14,12 +14,12 @@ app.use(cookieParser());
 
 app.use('/api', router);
 
-app.use("/", (req, res) => {
-    res.send("Welcome to Car washing system API!");
-})
-
 app.use("/test", (req, res) => {
     res.send("test route");
+})
+
+app.get("/", (req, res) => {
+    res.send("Welcome to Car washing system API!");
 })
 
 app.use(globalErrorHandler);

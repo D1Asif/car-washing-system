@@ -15,11 +15,11 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use((0, cookie_parser_1.default)());
 app.use('/api', routes_1.default);
-app.use("/", function (req, res) {
-    res.send("Welcome to Car washing system API!");
-});
 app.use("/test", function (req, res) {
     res.send("test route");
+});
+app.get("/", function (req, res) {
+    res.send("Welcome to Car washing system API!");
 });
 app.use(globalErrorHandler_1.default);
 app.use(notFound_1.default);
