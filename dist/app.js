@@ -19,7 +19,7 @@ app.use("/test", function (req, res) {
     res.send("test route");
 });
 app.get("/", function (req, res) {
-    res.send("Welcome to Car washing system API!");
+    res.send("Welcome to Car Washing System API!");
 });
 app.use(globalErrorHandler_1.default);
 app.use(notFound_1.default);
