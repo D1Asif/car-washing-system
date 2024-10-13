@@ -68,7 +68,7 @@ const getAllSlotsFromDB = async (query: Record<string, unknown>) => {
 }
 
 const getSlotByIdFromDB = async (slotId: string) => {
-    const slot = await Slot.findById(slotId);
+    const slot = await Slot.findById(slotId).populate('service');
 
     return slot;
 }

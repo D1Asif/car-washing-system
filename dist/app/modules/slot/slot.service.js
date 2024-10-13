@@ -116,7 +116,7 @@ var getSlotByIdFromDB = function (slotId) { return __awaiter(void 0, void 0, voi
     var slot;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, slot_model_1.Slot.findById(slotId)];
+            case 0: return [4 /*yield*/, slot_model_1.Slot.findById(slotId).populate('service')];
             case 1:
                 slot = _a.sent();
                 return [2 /*return*/, slot];
