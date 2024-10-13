@@ -7,4 +7,6 @@ router.get("/availability", SlotControllers.getAvailableSlots);
 
 router.get("/", SlotControllers.getAllSlots);
 
+router.get("/:slotId", SlotControllers.getSlotByID)
+
 export const SlotRoutes = router;

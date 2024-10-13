@@ -99,8 +99,26 @@ var getAllSlots = (0, catchAsync_1.default)(function (req, res) { return __await
         }
     });
 }); });
+var getSlotByID = (0, catchAsync_1.default)(function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, slot_service_1.SlotServices.getSlotByIdFromDB(req.params.slotId)];
+            case 1:
+                result = _a.sent();
+                (0, sendResponse_1.default)(res, {
+                    statusCode: http_status_1.default.OK,
+                    success: true,
+                    message: "Slot retrieved successfully",
+                    data: result
+                });
+                return [2 /*return*/];
+        }
+    });
+}); });
 exports.SlotControllers = {
     createSlots: createSlots,
     getAvailableSlots: getAvailableSlots,
-    getAllSlots: getAllSlots
+    getAllSlots: getAllSlots,
+    getSlotByID: getSlotByID
 };

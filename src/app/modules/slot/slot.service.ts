@@ -67,8 +67,15 @@ const getAllSlotsFromDB = async (query: Record<string, unknown>) => {
     return slots;
 }
 
+const getSlotByIdFromDB = async (slotId: string) => {
+    const slot = await Slot.findById(slotId);
+
+    return slot;
+}
+
 export const SlotServices = {
     createSlotsIntoDB,
     getAvailableSlotsFromDB,
-    getAllSlotsFromDB
+    getAllSlotsFromDB,
+    getSlotByIdFromDB
 }

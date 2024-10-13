@@ -112,8 +112,20 @@ var getAllSlotsFromDB = function (query) { return __awaiter(void 0, void 0, void
         }
     });
 }); };
+var getSlotByIdFromDB = function (slotId) { return __awaiter(void 0, void 0, void 0, function () {
+    var slot;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, slot_model_1.Slot.findById(slotId)];
+            case 1:
+                slot = _a.sent();
+                return [2 /*return*/, slot];
+        }
+    });
+}); };
 exports.SlotServices = {
     createSlotsIntoDB: createSlotsIntoDB,
     getAvailableSlotsFromDB: getAvailableSlotsFromDB,
-    getAllSlotsFromDB: getAllSlotsFromDB
+    getAllSlotsFromDB: getAllSlotsFromDB,
+    getSlotByIdFromDB: getSlotByIdFromDB
 };

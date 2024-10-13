@@ -9,4 +9,5 @@ var slot_controller_1 = require("./slot.controller");
 var router = express_1.default.Router();
 router.get("/availability", slot_controller_1.SlotControllers.getAvailableSlots);
 router.get("/", slot_controller_1.SlotControllers.getAllSlots);
+router.get("/:slotId", slot_controller_1.SlotControllers.getSlotByID);
 exports.SlotRoutes = router;
