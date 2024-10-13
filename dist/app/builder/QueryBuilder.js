@@ -45,6 +45,9 @@ var QueryBuilder = /** @class */ (function () {
         if (queryObj.sort) {
             delete queryObj.sort;
         }
+        if (queryObj.searchTerm) {
+            delete queryObj.searchTerm;
+        }
         var tags = (_b = (_a = this.query) === null || _a === void 0 ? void 0 : _a.tags) === null || _b === void 0 ? void 0 : _b.split(",");
         if (tags === null || tags === void 0 ? void 0 : tags.length) {
             delete queryObj.tags;

@@ -71,7 +71,6 @@ var getAllServicesFromDB = function (query) { return __awaiter(void 0, void 0, v
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log(query);
                 serviceQuery = new QueryBuilder_1.default(service_model_1.Service.find(), query)
                     .search(["name", "description"])
                     .filter()
@@ -79,7 +78,6 @@ var getAllServicesFromDB = function (query) { return __awaiter(void 0, void 0, v
                 return [4 /*yield*/, serviceQuery.modelQuery];
             case 1:
                 services = _a.sent();
-                console.log(services);
                 return [2 /*return*/, services];
         }
     });

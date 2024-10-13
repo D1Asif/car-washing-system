@@ -10,8 +10,8 @@ class QueryBuilder<T> {
     }
 
     search(searchableFields: string[]) {
-        const searchTerm = this?.query?.searchTerm
-
+        const searchTerm = this?.query?.searchTerm;
+        
         if (searchTerm) {
             this.modelQuery = this.modelQuery.find({
                 $or: searchableFields.map((field) => (
@@ -38,6 +38,9 @@ class QueryBuilder<T> {
         }
         if (queryObj.sort) {
             delete queryObj.sort;
+        }
+        if (queryObj.searchTerm) {
+            delete queryObj.searchTerm;
         }
 
         const tags = (this.query?.tags as string)?.split(",");

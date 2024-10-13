@@ -15,15 +15,12 @@ const getAServiceByIdFromDB = async (id: string) => {
 }
 
 const getAllServicesFromDB = async (query: Record<string, unknown>) => {
-    console.log(query);
     const serviceQuery = new QueryBuilder(Service.find(), query)
                                 .search(["name", "description"])
                                 .filter()
                                 .sort()
 
     const services = await serviceQuery.modelQuery;
-
-    console.log(services);
     
     return services;
 }
