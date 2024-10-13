@@ -43,6 +43,7 @@ exports.ServiceServices = void 0;
 var http_status_1 = __importDefault(require("http-status"));
 var AppError_1 = __importDefault(require("../../errors/AppError"));
 var service_model_1 = require("./service.model");
+var QueryBuilder_1 = __importDefault(require("../../builder/QueryBuilder"));
 var createServiceIntoDB = function (payload) { return __awaiter(void 0, void 0, void 0, function () {
     var newService;
     return __generator(this, function (_a) {
@@ -65,14 +66,21 @@ var getAServiceByIdFromDB = function (id) { return __awaiter(void 0, void 0, voi
         }
     });
 }); };
-var getAllServicesFromDB = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var service;
+var getAllServicesFromDB = function (query) { return __awaiter(void 0, void 0, void 0, function () {
+    var serviceQuery, services;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, service_model_1.Service.find()];
+            case 0:
+                console.log(query);
+                serviceQuery = new QueryBuilder_1.default(service_model_1.Service.find(), query)
+                    .search(["name", "description"])
+                    .filter()
+                    .sort();
+                return [4 /*yield*/, serviceQuery.modelQuery];
             case 1:
-                service = _a.sent();
-                return [2 /*return*/, service];
+                services = _a.sent();
+                console.log(services);
+                return [2 /*return*/, services];
         }
     });
 }); };

@@ -56,7 +56,19 @@ const getAvailableSlotsFromDB = async (query: Record<string, unknown>) => {
     return refinedAvailableSlots;
 }
 
+const getAllSlotsFromDB = async (query: Record<string, unknown>) => {
+    const slotsQuery = new QueryBuilder(
+        Slot.find(),
+        query
+    ).filter()
+
+    const slots = await slotsQuery.modelQuery;
+
+    return slots;
+}
+
 export const SlotServices = {
     createSlotsIntoDB,
-    getAvailableSlotsFromDB
+    getAvailableSlotsFromDB,
+    getAllSlotsFromDB
 }

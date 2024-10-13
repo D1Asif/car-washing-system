@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get("/availability", SlotControllers.getAvailableSlots);
 
+router.get("/", SlotControllers.getAllSlots);
+
 export const SlotRoutes = router;

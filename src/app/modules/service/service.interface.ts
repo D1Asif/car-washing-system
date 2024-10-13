@@ -3,5 +3,6 @@ export type TService = {
     description: string;
     price: number;
     duration: number;
+    tags: string[];
     isDeleted: boolean;
 }

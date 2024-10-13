@@ -18,6 +18,10 @@ const serviceSchema = new Schema<TService>({
         type: Number,
         required: true,
     },
+    tags: {
+        type: [String],
+        default: []
+    },
     isDeleted: {
         type: Boolean,
         default: false,

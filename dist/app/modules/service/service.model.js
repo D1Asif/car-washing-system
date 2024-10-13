@@ -19,6 +19,10 @@ var serviceSchema = new mongoose_1.Schema({
         type: Number,
         required: true,
     },
+    tags: {
+        type: [String],
+        default: []
+    },
     isDeleted: {
         type: Boolean,
         default: false,

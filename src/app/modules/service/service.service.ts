@@ -2,6 +2,7 @@ import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
 import { TService } from "./service.interface"
 import { Service } from "./service.model"
+import QueryBuilder from "../../builder/QueryBuilder";
 
 const createServiceIntoDB = async (payload: TService) => {
     const newService = await Service.create(payload);
@@ -13,9 +14,18 @@ const getAServiceByIdFromDB = async (id: string) => {
     return service;
 }
 
-const getAllServicesFromDB = async () => {
-    const service = await Service.find();
-    return service;
+const getAllServicesFromDB = async (query: Record<string, unknown>) => {
+    console.log(query);
+    const serviceQuery = new QueryBuilder(Service.find(), query)
+                                .search(["name", "description"])
+                                .filter()
+                                .sort()
+
+    const services = await serviceQuery.modelQuery;
+
+    console.log(services);
+    
+    return services;
 }
 
 const updateAServiceIntoDB = async (id: string, payload: Partial<TService>) => {

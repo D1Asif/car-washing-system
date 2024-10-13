@@ -99,7 +99,21 @@ var getAvailableSlotsFromDB = function (query) { return __awaiter(void 0, void 0
         }
     });
 }); };
+var getAllSlotsFromDB = function (query) { return __awaiter(void 0, void 0, void 0, function () {
+    var slotsQuery, slots;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                slotsQuery = new QueryBuilder_1.default(slot_model_1.Slot.find(), query).filter();
+                return [4 /*yield*/, slotsQuery.modelQuery];
+            case 1:
+                slots = _a.sent();
+                return [2 /*return*/, slots];
+        }
+    });
+}); };
 exports.SlotServices = {
     createSlotsIntoDB: createSlotsIntoDB,
-    getAvailableSlotsFromDB: getAvailableSlotsFromDB
+    getAvailableSlotsFromDB: getAvailableSlotsFromDB,
+    getAllSlotsFromDB: getAllSlotsFromDB
 };

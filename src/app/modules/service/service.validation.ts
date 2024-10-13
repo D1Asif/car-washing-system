@@ -6,6 +6,7 @@ const createServiceValidationSchema = z.object({
         description: z.string({required_error: "Description is required"}),
         price: z.number().min(0, "Price must be a positive number"),
         duration: z.number().min(0, "Duration must be a positive number"),
+        tags: z.array(z.string()),
         isDeleted: z.boolean().default(false)
     })
 });
@@ -16,6 +17,7 @@ const updateServiceValidationSchema = z.object({
         description: z.string({required_error: "Description is required"}).optional(),
         price: z.number().min(0, "Price must be a positive number").optional(),
         duration: z.number().min(0, "Duration must be a positive number").optional(),
+        tags: z.array(z.string()).optional(),
         isDeleted: z.boolean().optional()
     })
 });

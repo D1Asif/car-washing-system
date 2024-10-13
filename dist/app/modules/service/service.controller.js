@@ -86,7 +86,7 @@ var getAllServices = (0, catchAsync_1.default)(function (req, res) { return __aw
     var result;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, service_service_1.ServiceServices.getAllServicesFromDB()];
+            case 0: return [4 /*yield*/, service_service_1.ServiceServices.getAllServicesFromDB(req.query)];
             case 1:
                 result = _a.sent();
                 if (!result.length) {
