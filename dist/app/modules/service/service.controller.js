@@ -89,9 +89,6 @@ var getAllServices = (0, catchAsync_1.default)(function (req, res) { return __aw
             case 0: return [4 /*yield*/, service_service_1.ServiceServices.getAllServicesFromDB(req.query)];
             case 1:
                 result = _a.sent();
-                if (!result.length) {
-                    throw new AppError_1.default(http_status_1.default.NOT_FOUND, "No data found!");
-                }
                 (0, sendResponse_1.default)(res, {
                     statusCode: http_status_1.default.OK,
                     success: true,

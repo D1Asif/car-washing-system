@@ -21,10 +21,6 @@ const createSlots = catchAsync(async (req, res) => {
 
 const getAvailableSlots = catchAsync(async (req, res) => {
     const result = await SlotServices.getAvailableSlotsFromDB(req.query);
-
-    if (!result.length) {
-        throw new AppError(httpStatus.NOT_FOUND, "No Available slots found!")
-    }
     
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -36,10 +32,6 @@ const getAvailableSlots = catchAsync(async (req, res) => {
 
 const getAllSlots = catchAsync(async (req, res) => {
     const result = await SlotServices.getAllSlotsFromDB(req.query);
-
-    if (!result.length) {
-        throw new AppError(httpStatus.NOT_FOUND, "No slots found!")
-    }
     
     sendResponse(res, {
         statusCode: httpStatus.OK,

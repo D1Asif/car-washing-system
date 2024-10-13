@@ -72,9 +72,6 @@ var getAvailableSlots = (0, catchAsync_1.default)(function (req, res) { return _
             case 0: return [4 /*yield*/, slot_service_1.SlotServices.getAvailableSlotsFromDB(req.query)];
             case 1:
                 result = _a.sent();
-                if (!result.length) {
-                    throw new AppError_1.default(http_status_1.default.NOT_FOUND, "No Available slots found!");
-                }
                 (0, sendResponse_1.default)(res, {
                     statusCode: http_status_1.default.OK,
                     success: true,
@@ -92,9 +89,6 @@ var getAllSlots = (0, catchAsync_1.default)(function (req, res) { return __await
             case 0: return [4 /*yield*/, slot_service_1.SlotServices.getAllSlotsFromDB(req.query)];
             case 1:
                 result = _a.sent();
-                if (!result.length) {
-                    throw new AppError_1.default(http_status_1.default.NOT_FOUND, "No slots found!");
-                }
                 (0, sendResponse_1.default)(res, {
                     statusCode: http_status_1.default.OK,
                     success: true,
