@@ -100,6 +100,15 @@ const getUserBookingsFromDB = async (userEmail: string, query: Record<string, un
             },
             { $unwind: '$slot' },             // Deconstruct slot array
             {
+                $lookup: {
+                    from: 'services',               // The Service collection
+                    localField: 'service',           // Booking's service field
+                    foreignField: '_id',          // Slot's _id field
+                    as: 'service'                    // Output field
+                }
+            },
+            { $unwind: '$service' },             // Deconstruct service array
+            {
                 $addFields: {                   // Combine date and startTime into one Date object
                     slotDateTime: {
                         $dateFromString: {
@@ -136,6 +145,15 @@ const getUserBookingsFromDB = async (userEmail: string, query: Record<string, un
                 }
             },
             { $unwind: '$slot' },             // Deconstruct slot array
+            {
+                $lookup: {
+                    from: 'services',               // The Service collection
+                    localField: 'service',           // Booking's service field
+                    foreignField: '_id',          // Slot's _id field
+                    as: 'service'                    // Output field
+                }
+            },
+            { $unwind: '$service' },             // Deconstruct service array
             {
                 $addFields: {                   // Combine date and startTime into one Date object
                     slotDateTime: {

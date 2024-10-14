@@ -154,6 +154,15 @@ var getUserBookingsFromDB = function (userEmail, query) { return __awaiter(void 
                         },
                         { $unwind: '$slot' },
                         {
+                            $lookup: {
+                                from: 'services',
+                                localField: 'service',
+                                foreignField: '_id',
+                                as: 'service' // Output field
+                            }
+                        },
+                        { $unwind: '$service' },
+                        {
                             $addFields: {
                                 slotDateTime: {
                                     $dateFromString: {
@@ -192,6 +201,15 @@ var getUserBookingsFromDB = function (userEmail, query) { return __awaiter(void 
                             }
                         },
                         { $unwind: '$slot' },
+                        {
+                            $lookup: {
+                                from: 'services',
+                                localField: 'service',
+                                foreignField: '_id',
+                                as: 'service' // Output field
+                            }
+                        },
+                        { $unwind: '$service' },
                         {
                             $addFields: {
                                 slotDateTime: {
