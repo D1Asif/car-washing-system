@@ -49,6 +49,18 @@ var createUserIntoDB = function (payload) { return __awaiter(void 0, void 0, voi
         }
     });
 }); };
+var updateAccountInfo = function (userEmail, payload) { return __awaiter(void 0, void 0, void 0, function () {
+    var updatedUser;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, user_model_1.User.findOneAndUpdate({ email: userEmail }, payload, { new: true })];
+            case 1:
+                updatedUser = _a.sent();
+                return [2 /*return*/, updatedUser];
+        }
+    });
+}); };
 exports.UserServices = {
-    createUserIntoDB: createUserIntoDB
+    createUserIntoDB: createUserIntoDB,
+    updateAccountInfo: updateAccountInfo
 };

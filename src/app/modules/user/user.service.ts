@@ -6,6 +6,17 @@ const createUserIntoDB = async (payload: TUser) => {
     return newUser;
 }
 
+const updateAccountInfo = async (userEmail: string, payload: Partial<TUser>) => {
+    const updatedUser = await User.findOneAndUpdate(
+        { email: userEmail },
+        payload,
+        { new: true }
+    )
+
+    return updatedUser;
+}
+
 export const UserServices = {
-    createUserIntoDB
+    createUserIntoDB,
+    updateAccountInfo
 }

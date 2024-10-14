@@ -14,8 +14,20 @@ const createUser = catchAsync(async (req, res) => {
         message: "User registered successfully",
         data: result
     })
+});
+
+const updateAccountInfo = catchAsync(async (req, res) => {
+    const result = await UserServices.updateAccountInfo(req.user.email, req.body);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Account info updated successfully",
+        data: result
+    })
 })
 
 export const UserControllers = {
-    createUser
+    createUser,
+    updateAccountInfo
 }
