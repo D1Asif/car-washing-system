@@ -44,9 +44,9 @@ const createBookingIntoDB = async (payload: TBooking) => {
         await session.commitTransaction();
 
         const updatedBooking = await Booking.findById(newBooking[0].id)
-                                        .populate("service")
-                                        .populate("customer")
-                                        .populate("slot")
+            .populate("service")
+            .populate("customer")
+            .populate("slot")
 
         return updatedBooking;
 
@@ -62,23 +62,102 @@ const createBookingIntoDB = async (payload: TBooking) => {
 
 const getAllBookingsFromDB = async () => {
     const bookings = await Booking.find()
-                        .populate("customer")
-                        .populate("service")
-                        .populate("service")
+        .populate("customer")
+        .populate("service")
+        .populate("service")
 
     return bookings;
 }
 
-const getUserBookingsFromDB = async (userEmail: string) => {
-    const user = await User.findOne({email: userEmail});
+const getUserBookingsFromDB = async (userEmail: string, query: Record<string, unknown>) => {
+    const user = await User.findOne({ email: userEmail });
+    const currentDate = new Date();
+
+    let userBookings;
 
     if (!user) {
         throw new AppError(httpStatus.NOT_FOUND, "User not found!");
     }
 
-    const userBookings = await Booking.find({customer: user._id})
-                            .populate("service")
-                            .populate("slot");
+    if (!query?.time) {
+        userBookings = await Booking.find({ customer: user._id })
+            .populate("service")
+            .populate("slot");
+    }
+
+    if (query.time === 'past') {
+        userBookings = await Booking.aggregate([
+            {
+                $match: { customer: user._id } // Match user bookings
+            },
+            {
+                $lookup: {
+                    from: 'slots',               // The Slot collection
+                    localField: 'slot',           // Booking's slot field
+                    foreignField: '_id',          // Slot's _id field
+                    as: 'slot'                    // Output field
+                }
+            },
+            { $unwind: '$slot' },             // Deconstruct slot array
+            {
+                $addFields: {                   // Combine date and startTime into one Date object
+                    slotDateTime: {
+                        $dateFromString: {
+                            dateString: {
+                                $concat: [
+                                    { $dateToString: { format: "%Y-%m-%d", date: "$slot.date" } }, // Format slot.date
+                                    "T", "$slot.startTime" // Append startTime
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                $match: { slotDateTime: { $lt: currentDate } }  // Filter past bookings
+            },
+            {
+                $sort: { sortDateTime: -1 }
+            }
+        ]);
+    }
+
+    if (query?.time === "upcoming") {
+        userBookings = await Booking.aggregate([
+            {
+                $match: { customer: user._id } // Match user bookings
+            },
+            {
+                $lookup: {
+                    from: 'slots',               // The Slot collection
+                    localField: 'slot',           // Booking's slot field
+                    foreignField: '_id',          // Slot's _id field
+                    as: 'slot'                    // Output field
+                }
+            },
+            { $unwind: '$slot' },             // Deconstruct slot array
+            {
+                $addFields: {                   // Combine date and startTime into one Date object
+                    slotDateTime: {
+                        $dateFromString: {
+                            dateString: {
+                                $concat: [
+                                    { $dateToString: { format: "%Y-%m-%d", date: "$slot.date" } }, // Format slot.date
+                                    "T", "$slot.startTime" // Append startTime
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                $match: { slotDateTime: { $gte: currentDate } }  // Filter upcoming bookings
+            },
+            {
+                $sort: { sortDateTime: 1 }
+            }
+        ]);
+    }
 
     return userBookings;
 }
