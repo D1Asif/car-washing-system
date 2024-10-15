@@ -113,7 +113,7 @@ var getAllBookingsFromDB = function () { return __awaiter(void 0, void 0, void 0
             case 0: return [4 /*yield*/, booking_model_1.Booking.find()
                     .populate("customer")
                     .populate("service")
-                    .populate("service")];
+                    .populate("slot")];
             case 1:
                 bookings = _a.sent();
                 return [2 /*return*/, bookings];

@@ -64,7 +64,7 @@ const getAllBookingsFromDB = async () => {
     const bookings = await Booking.find()
         .populate("customer")
         .populate("service")
-        .populate("service")
+        .populate("slot")
 
     return bookings;
 }
