@@ -10,6 +10,7 @@ var service_route_1 = require("../modules/service/service.route");
 var slot_route_1 = require("../modules/slot/slot.route");
 var booking_route_1 = require("../modules/booking/booking.route");
 var mybookings_route_1 = require("../modules/myBookings/mybookings.route");
+var review_route_1 = require("../modules/review/review.route");
 var router = express_1.default.Router();
 var moduleRoutes = [
     {
@@ -35,6 +36,10 @@ var moduleRoutes = [
     {
         path: "/my-bookings",
         route: mybookings_route_1.MyBookingsRoutes
+    },
+    {
+        path: "/reviews",
+        route: review_route_1.ReviewRoutes
     },
 ];
 moduleRoutes.forEach(function (route) { return router.use(route.path, route.route); });
