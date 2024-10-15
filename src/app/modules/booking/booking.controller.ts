@@ -31,10 +31,6 @@ const createBooking = catchAsync(async (req, res) => {
 const getAllBookings = catchAsync(async (req, res) => {
     const result = await BookingServices.getAllBookingsFromDB();
 
-    if (!result.length) {
-        throw new AppError(httpStatus.NOT_FOUND, "No bookings found!")
-    }
-
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
