@@ -12,6 +12,6 @@ router.put("/update-account-info", auth('user', 'admin'), validateRequest(UserVa
 
 router.get("/users", auth('admin'), UserControllers.getAllUsers);
 
-// router.put("/make-user-admin/:userId", auth('admin'), UserControllers.)
+router.put("/make-user-admin/:userId", auth('admin'), UserControllers.makeUserAdmin)
 
 export const UserRoutes = router;

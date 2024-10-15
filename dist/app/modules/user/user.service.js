@@ -71,8 +71,20 @@ var getAllUsersFromDB = function () { return __awaiter(void 0, void 0, void 0, f
         }
     });
 }); };
+var makeUserAdminIntoDB = function (userId) { return __awaiter(void 0, void 0, void 0, function () {
+    var updatedUser;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, user_model_1.User.findByIdAndUpdate(userId, { role: 'admin' }, { new: true })];
+            case 1:
+                updatedUser = _a.sent();
+                return [2 /*return*/, updatedUser];
+        }
+    });
+}); };
 exports.UserServices = {
     createUserIntoDB: createUserIntoDB,
     updateAccountInfo: updateAccountInfo,
-    getAllUsersFromDB: getAllUsersFromDB
+    getAllUsersFromDB: getAllUsersFromDB,
+    makeUserAdminIntoDB: makeUserAdminIntoDB
 };

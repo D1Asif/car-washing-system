@@ -22,8 +22,19 @@ const getAllUsersFromDB = async () => {
     return users;
 }
 
+const makeUserAdminIntoDB = async (userId: string) => {
+    const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { role: 'admin' },
+        { new: true }
+    )
+
+    return updatedUser;
+}
+
 export const UserServices = {
     createUserIntoDB,
     updateAccountInfo,
-    getAllUsersFromDB
+    getAllUsersFromDB,
+    makeUserAdminIntoDB
 }

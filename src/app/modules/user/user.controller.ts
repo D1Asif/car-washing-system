@@ -38,8 +38,20 @@ const getAllUsers = catchAsync(async (req, res) => {
     })
 })
 
+const makeUserAdmin = catchAsync(async (req, res) => {
+    const result = await UserServices.makeUserAdminIntoDB(req.params.userId);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "User has been made an admin",
+        data: result
+    })
+})
+
 export const UserControllers = {
     createUser,
     updateAccountInfo,
-    getAllUsers
+    getAllUsers,
+    makeUserAdmin
 }
