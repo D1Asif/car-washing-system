@@ -10,4 +10,8 @@ router.post("/signup", validateRequest(UserValidations.createUserValidationSchem
 
 router.put("/update-account-info", auth('user', 'admin'), validateRequest(UserValidations.updateAccountInfoValidation), UserControllers.updateAccountInfo);
 
+router.get("/users", auth('admin'), UserControllers.getAllUsers);
+
+// router.put("/make-user-admin/:userId", auth('admin'), UserControllers.)
+
 export const UserRoutes = router;

@@ -16,7 +16,14 @@ const updateAccountInfo = async (userEmail: string, payload: Partial<TUser>) => 
     return updatedUser;
 }
 
+const getAllUsersFromDB = async () => {
+    const users = await User.find({});
+
+    return users;
+}
+
 export const UserServices = {
     createUserIntoDB,
-    updateAccountInfo
+    updateAccountInfo,
+    getAllUsersFromDB
 }

@@ -60,7 +60,19 @@ var updateAccountInfo = function (userEmail, payload) { return __awaiter(void 0,
         }
     });
 }); };
+var getAllUsersFromDB = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var users;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, user_model_1.User.find({})];
+            case 1:
+                users = _a.sent();
+                return [2 /*return*/, users];
+        }
+    });
+}); };
 exports.UserServices = {
     createUserIntoDB: createUserIntoDB,
-    updateAccountInfo: updateAccountInfo
+    updateAccountInfo: updateAccountInfo,
+    getAllUsersFromDB: getAllUsersFromDB
 };
