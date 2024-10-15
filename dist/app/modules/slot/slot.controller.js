@@ -116,9 +116,28 @@ var getSlotByID = (0, catchAsync_1.default)(function (req, res) { return __await
         }
     });
 }); });
+var updateSlotStatus = (0, catchAsync_1.default)(function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result;
+    var _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0: return [4 /*yield*/, slot_service_1.SlotServices.updateSlotStatusIntoDB((_a = req.params) === null || _a === void 0 ? void 0 : _a.slotId, req.body.isBooked)];
+            case 1:
+                result = _b.sent();
+                (0, sendResponse_1.default)(res, {
+                    statusCode: http_status_1.default.OK,
+                    success: true,
+                    message: "Slot status updated successfully",
+                    data: result
+                });
+                return [2 /*return*/];
+        }
+    });
+}); });
 exports.SlotControllers = {
     createSlots: createSlots,
     getAvailableSlots: getAvailableSlots,
     getAllSlots: getAllSlots,
-    getSlotByID: getSlotByID
+    getSlotByID: getSlotByID,
+    updateSlotStatus: updateSlotStatus
 };

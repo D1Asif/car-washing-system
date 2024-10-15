@@ -123,9 +123,30 @@ var getSlotByIdFromDB = function (slotId) { return __awaiter(void 0, void 0, voi
         }
     });
 }); };
+var updateSlotStatusIntoDB = function (slotId, status) { return __awaiter(void 0, void 0, void 0, function () {
+    var slot, updatedSlot;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, slot_model_1.Slot.findById(slotId)];
+            case 1:
+                slot = _a.sent();
+                if (!slot) {
+                    throw new AppError_1.default(http_status_1.default.NOT_FOUND, "Slot not found");
+                }
+                if (slot.isBooked === 'booked') {
+                    throw new AppError_1.default(http_status_1.default.BAD_REQUEST, "Booked slot status cannot be changed");
+                }
+                return [4 /*yield*/, slot_model_1.Slot.findByIdAndUpdate(slotId, { isBooked: status }, { new: true })];
+            case 2:
+                updatedSlot = _a.sent();
+                return [2 /*return*/, updatedSlot];
+        }
+    });
+}); };
 exports.SlotServices = {
     createSlotsIntoDB: createSlotsIntoDB,
     getAvailableSlotsFromDB: getAvailableSlotsFromDB,
     getAllSlotsFromDB: getAllSlotsFromDB,
-    getSlotByIdFromDB: getSlotByIdFromDB
+    getSlotByIdFromDB: getSlotByIdFromDB,
+    updateSlotStatusIntoDB: updateSlotStatusIntoDB
 };

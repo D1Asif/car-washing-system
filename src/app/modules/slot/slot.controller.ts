@@ -52,9 +52,21 @@ const getSlotByID = catchAsync(async (req, res) => {
     })
 })
 
+const updateSlotStatus = catchAsync(async (req, res) => {
+    const result = await SlotServices.updateSlotStatusIntoDB(req.params?.slotId, req.body.isBooked);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Slot status updated successfully",
+        data: result
+    })
+})
+
 export const SlotControllers = {
     createSlots,
     getAvailableSlots,
     getAllSlots,
-    getSlotByID
+    getSlotByID,
+    updateSlotStatus
 }

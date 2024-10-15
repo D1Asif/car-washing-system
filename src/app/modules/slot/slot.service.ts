@@ -32,7 +32,7 @@ const createSlotsIntoDB = async (payload: TCreateSlotsPayload) => {
 
     const slotDocs: TSlot[] = slots.map((slot) => ({
         service: payload.service,
-        date: payload.date,      
+        date: payload.date,
         startTime: slot.start,
         endTime: slot.end,
         isBooked: 'available'
@@ -45,7 +45,7 @@ const createSlotsIntoDB = async (payload: TCreateSlotsPayload) => {
 
 const getAvailableSlotsFromDB = async (query: Record<string, unknown>) => {
     const availableSlotsQuery = new QueryBuilder(
-        Slot.find({isBooked: 'available'}).populate('service'),
+        Slot.find({ isBooked: 'available' }).populate('service'),
         query
     ).filter();
 
@@ -73,9 +73,30 @@ const getSlotByIdFromDB = async (slotId: string) => {
     return slot;
 }
 
+const updateSlotStatusIntoDB = async (slotId: string, status: 'available' | 'canceled') => {
+    const slot = await Slot.findById(slotId);
+
+    if (!slot) {
+        throw new AppError(httpStatus.NOT_FOUND, "Slot not found")
+    }
+
+    if (slot.isBooked === 'booked') {
+        throw new AppError(httpStatus.BAD_REQUEST, "Booked slot status cannot be changed")
+    }
+
+    const updatedSlot = await Slot.findByIdAndUpdate(
+        slotId,
+        { isBooked: status },
+        { new: true }
+    )
+
+    return updatedSlot;
+}
+
 export const SlotServices = {
     createSlotsIntoDB,
     getAvailableSlotsFromDB,
     getAllSlotsFromDB,
-    getSlotByIdFromDB
+    getSlotByIdFromDB,
+    updateSlotStatusIntoDB
 }
