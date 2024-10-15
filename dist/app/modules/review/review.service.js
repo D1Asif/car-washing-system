@@ -53,7 +53,7 @@ var getAllReviewsFromDB = function () { return __awaiter(void 0, void 0, void 0,
     var reviews;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, review_model_1.Review.find({})];
+            case 0: return [4 /*yield*/, review_model_1.Review.find({}).populate('User')];
             case 1:
                 reviews = _a.sent();
                 return [2 /*return*/, reviews];

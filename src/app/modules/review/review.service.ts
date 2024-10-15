@@ -8,7 +8,7 @@ const createReviewIntoDB = async (payload: TReview) => {
 }
 
 const getAllReviewsFromDB = async () => {
-    const reviews = await Review.find({});
+    const reviews = await Review.find({}).populate('User');
 
     return reviews;
 }
