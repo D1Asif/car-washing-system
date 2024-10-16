@@ -1,41 +1,40 @@
-import httpStatus from "http-status";
-import AppError from "../../errors/AppError";
 import { Booking } from "../booking/booking.model";
 import { verifyPayment } from "./payment.util"
 import { readFileSync } from "fs"
 import { join } from "path"
 
 const confirmPaymentIntoDB = async (query: Record<string, unknown>) => {
-    try {
-        const { transactionId, status, bookingId } = query;
+    const { transactionId, status, bookingId } = query;
 
-        const verificationResponse = await verifyPayment(transactionId as string);
+    console.log("before verification");
 
-        let result;
-        let message;
+    const verificationResponse = await verifyPayment(transactionId as string);
 
-        if (verificationResponse && verificationResponse.pay_status === 'Successful' && status === 'success') {
-            result = await Booking.findByIdAndUpdate(
-                bookingId,
-                { paymentStatus: 'paid' },
-                { new: true }
-            )
+    console.log("after verification", verificationResponse);
 
-            message = "Payment Successful!"
-        } else {
-            message = "Payment failed!"
-        }
+    let result;
+    let message;
 
-        const filePath = join(__dirname, "./confirmation.html")
-        let template = readFileSync(filePath, 'utf-8')
+    if (verificationResponse && verificationResponse.pay_status === 'Successful' && status === 'success') {
+        result = await Booking.findByIdAndUpdate(
+            bookingId,
+            { paymentStatus: 'paid' },
+            { new: true }
+        )
 
-        template = template.replace('{{msg}}', message);
-
-        return template;
-    } catch (err) {
-        throw new AppError(httpStatus.INTERNAL_SERVER_ERROR, "Payment verification failure")
+        message = "Payment Successful!"
+    } else {
+        message = "Payment failed!"
     }
 
+    const filePath = join(__dirname, "./confirmation.html")
+    let template = readFileSync(filePath, 'utf-8')
+
+    template = template.replace('{{msg}}', message);
+
+    console.log(template);
+
+    return template;
 }
 
 export const PaymentServices = {
