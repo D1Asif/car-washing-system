@@ -47,9 +47,11 @@ var confirmPaymentIntoDB = function (query) { return __awaiter(void 0, void 0, v
         switch (_a.label) {
             case 0:
                 transactionId = query.transactionId, status = query.status, bookingId = query.bookingId;
+                console.log("before verification");
                 return [4 /*yield*/, (0, payment_util_1.verifyPayment)(transactionId)];
             case 1:
                 verificationResponse = _a.sent();
+                console.log("after verification", verificationResponse);
                 if (!(verificationResponse && verificationResponse.pay_status === 'Successful' && status === 'success')) return [3 /*break*/, 3];
                 return [4 /*yield*/, booking_model_1.Booking.findByIdAndUpdate(bookingId, { paymentStatus: 'paid' }, { new: true })];
             case 2:
@@ -63,6 +65,7 @@ var confirmPaymentIntoDB = function (query) { return __awaiter(void 0, void 0, v
                 filePath = (0, path_1.join)(__dirname, "./confirmation.html");
                 template = (0, fs_1.readFileSync)(filePath, 'utf-8');
                 template = template.replace('{{msg}}', message);
+                console.log(template);
                 return [2 /*return*/, template];
         }
     });

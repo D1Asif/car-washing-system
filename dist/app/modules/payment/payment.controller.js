@@ -46,7 +46,9 @@ var confirmPayment = (0, catchAsync_1.default)(function (req, res) { return __aw
     var result;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, payment_service_1.PaymentServices.confirmPaymentIntoDB(req.query)];
+            case 0:
+                console.log("hello");
+                return [4 /*yield*/, payment_service_1.PaymentServices.confirmPaymentIntoDB(req.query)];
             case 1:
                 result = _a.sent();
                 res.send(result);
