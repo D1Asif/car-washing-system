@@ -1,3 +1,4 @@
+import AppError from "../../errors/AppError";
 import { Booking } from "../booking/booking.model";
 import { verifyPayment } from "./payment.util"
 import { readFileSync } from "fs"
@@ -29,16 +30,18 @@ const confirmPaymentIntoDB = async (query: Record<string, unknown>) => {
 
     console.log(result, "booking");
 
-    const filePath = join(__dirname, "./confirmation.html")
-    let template = readFileSync(filePath, 'utf-8')
+    try {
+        const filePath = join(__dirname, "./confirmation.html")
+        let template = readFileSync(filePath, 'utf-8')
 
-    console.log("After join");
+        template = template.replace('{{msg}}', message);
 
-    template = template.replace('{{msg}}', message);
+        console.log(template);
 
-    console.log(template);
-
-    return template;
+        return template;
+    } catch (err: Error | any) {
+        throw new AppError(500, err)
+    }
 }
 
 export const PaymentServices = {

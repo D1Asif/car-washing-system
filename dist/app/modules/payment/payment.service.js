@@ -35,8 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentServices = void 0;
+var AppError_1 = __importDefault(require("../../errors/AppError"));
 var booking_model_1 = require("../booking/booking.model");
 var payment_util_1 = require("./payment.util");
 var fs_1 = require("fs");
@@ -63,12 +67,17 @@ var confirmPaymentIntoDB = function (query) { return __awaiter(void 0, void 0, v
                 _a.label = 4;
             case 4:
                 console.log(result, "booking");
-                filePath = (0, path_1.join)(__dirname, "./confirmation.html");
-                template = (0, fs_1.readFileSync)(filePath, 'utf-8');
-                console.log("After join");
-                template = template.replace('{{msg}}', message);
-                console.log(template);
-                return [2 /*return*/, template];
+                try {
+                    filePath = (0, path_1.join)(__dirname, "./confirmation.html");
+                    template = (0, fs_1.readFileSync)(filePath, 'utf-8');
+                    template = template.replace('{{msg}}', message);
+                    console.log(template);
+                    return [2 /*return*/, template];
+                }
+                catch (err) {
+                    throw new AppError_1.default(500, err);
+                }
+                return [2 /*return*/];
         }
     });
 }); };
