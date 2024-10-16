@@ -16,5 +16,7 @@ exports.default = {
     payment_store_id: process.env.PAYMENT_STORE_ID,
     payment_signature_key: process.env.PAYMENT_SIGNATURE_KEY,
     payment_api_url: process.env.PAYMENT_API_URL,
-    payment_verification_url: process.env.PAYMENT_VERIFICATION_URL
+    payment_verification_url: process.env.PAYMENT_VERIFICATION_URL,
+    deployment_url: process.env.DEPLOYMENT_URL,
+    frontend_deployment_url: process.env.FRONTEND_DEPLOYMENT_URL
 };

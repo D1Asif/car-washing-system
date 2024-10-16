@@ -5,9 +5,9 @@ export const payment = async (paymentData: TPaymentData) => {
     const paymentBody = {
         store_id: "aamarpaytest",
         tran_id: paymentData.transactionId,
-        success_url: `http://localhost:5000/api/payment/confirmation?transactionId=${paymentData.transactionId}&status=success&bookingId=${paymentData.bookingId}`,
-        fail_url: `http://localhost:5000/api/payment/confirmation?status=failure`,
-        cancel_url: "http://localhost:5000/",
+        success_url: `${config.deployment_url}api/payment/confirmation?transactionId=${paymentData.transactionId}&status=success&bookingId=${paymentData.bookingId}`,
+        fail_url: `${config.deployment_url}api/payment/confirmation?status=failure`,
+        cancel_url: config.frontend_deployment_url,
         amount: paymentData.amount,
         currency: "USD",
         signature_key: config.payment_signature_key,
