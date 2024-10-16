@@ -15,6 +15,7 @@ app.use(cookieParser());
 app.use('/api', router);
 
 app.use("/test", (req, res) => {
+    console.log("hi test");
     res.send("test route");
 })
 
