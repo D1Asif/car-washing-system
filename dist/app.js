@@ -16,7 +16,6 @@ app.use((0, cors_1.default)());
 app.use((0, cookie_parser_1.default)());
 app.use('/api', routes_1.default);
 app.use("/test", function (req, res) {
-    console.log("hi test");
     res.send("test route");
 });
 app.get("/", function (req, res) {

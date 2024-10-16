@@ -27,19 +27,6 @@ const confirmPaymentIntoDB = async (query: Record<string, unknown>) => {
     const template = getTemplate(message);
 
     return template;
-
-    // try {
-    //     const filePath = join(__dirname, "./confirmation.html")
-    //     let template = readFileSync(filePath, 'utf-8')
-
-    //     template = template.replace('{{msg}}', message);
-
-    //     console.log(template);
-
-    //     return template;
-    // } catch (err: Error | any) {
-    //     throw new AppError(500, err)
-    // }
 }
 
 export const PaymentServices = {
