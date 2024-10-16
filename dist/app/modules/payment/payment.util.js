@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyPayment = exports.payment = void 0;
+exports.getTemplate = exports.verifyPayment = exports.payment = void 0;
 var config_1 = __importDefault(require("../../config"));
 var payment = function (paymentData) { return __awaiter(void 0, void 0, void 0, function () {
     var paymentBody, res, data;
@@ -91,3 +91,7 @@ var verifyPayment = function (transactionId) { return __awaiter(void 0, void 0, 
     });
 }); };
 exports.verifyPayment = verifyPayment;
+var getTemplate = function (message) {
+    return "\n        <html lang=\"en\">\n\n            <head>\n                <meta charset=\"UTF-8\">\n                <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n                <title>Payment Confirmation</title>\n                <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n                <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n                <link\n                    href=\"https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap\"\n                    rel=\"stylesheet\">\n                <style>\n                    body {\n                        font-family: 'Roboto', sans-serif;\n                    }\n                </style>\n            </head>\n\n            <body>\n                <div\n                    style=\"display: flex; flex-direction: column; align-items: center; justify-content: center; height:100svh; font-size: xx-large;\">\n                    " + message + "\n                    <a\n                        href=\"https://car-washing-system-client-sigma.vercel.app/\"\n                        style=\"margin-top: 20px; background: #006adb; color: white; border: none; padding: 10px; border-radius: 10px; font-size: large; text-decoration: none;\">\n                        Go to Home\n                    </a>\n                </div>\n            </body>\n\n        </html>\n    ";
+};
+exports.getTemplate = getTemplate;

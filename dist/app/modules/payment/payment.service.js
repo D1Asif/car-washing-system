@@ -35,27 +35,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentServices = void 0;
-var AppError_1 = __importDefault(require("../../errors/AppError"));
 var booking_model_1 = require("../booking/booking.model");
 var payment_util_1 = require("./payment.util");
-var fs_1 = require("fs");
-var path_1 = require("path");
 var confirmPaymentIntoDB = function (query) { return __awaiter(void 0, void 0, void 0, function () {
-    var transactionId, status, bookingId, verificationResponse, result, message, filePath, template;
+    var transactionId, status, bookingId, verificationResponse, result, message, template;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 transactionId = query.transactionId, status = query.status, bookingId = query.bookingId;
-                console.log("before verification");
                 return [4 /*yield*/, (0, payment_util_1.verifyPayment)(transactionId)];
             case 1:
                 verificationResponse = _a.sent();
-                console.log("after verification", verificationResponse);
                 if (!(verificationResponse && verificationResponse.pay_status === 'Successful' && status === 'success')) return [3 /*break*/, 3];
                 return [4 /*yield*/, booking_model_1.Booking.findByIdAndUpdate(bookingId, { paymentStatus: 'paid' }, { new: true })];
             case 2:
@@ -66,18 +58,8 @@ var confirmPaymentIntoDB = function (query) { return __awaiter(void 0, void 0, v
                 message = "Payment failed!";
                 _a.label = 4;
             case 4:
-                console.log(result, "booking");
-                try {
-                    filePath = (0, path_1.join)(__dirname, "./confirmation.html");
-                    template = (0, fs_1.readFileSync)(filePath, 'utf-8');
-                    template = template.replace('{{msg}}', message);
-                    console.log(template);
-                    return [2 /*return*/, template];
-                }
-                catch (err) {
-                    throw new AppError_1.default(500, err);
-                }
-                return [2 /*return*/];
+                template = (0, payment_util_1.getTemplate)(message);
+                return [2 /*return*/, template];
         }
     });
 }); };
