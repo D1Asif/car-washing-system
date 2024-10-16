@@ -62,8 +62,10 @@ var confirmPaymentIntoDB = function (query) { return __awaiter(void 0, void 0, v
                 message = "Payment failed!";
                 _a.label = 4;
             case 4:
+                console.log(result, "booking");
                 filePath = (0, path_1.join)(__dirname, "./confirmation.html");
                 template = (0, fs_1.readFileSync)(filePath, 'utf-8');
+                console.log("After join");
                 template = template.replace('{{msg}}', message);
                 console.log(template);
                 return [2 /*return*/, template];

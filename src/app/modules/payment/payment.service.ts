@@ -27,8 +27,12 @@ const confirmPaymentIntoDB = async (query: Record<string, unknown>) => {
         message = "Payment failed!"
     }
 
+    console.log(result, "booking");
+
     const filePath = join(__dirname, "./confirmation.html")
     let template = readFileSync(filePath, 'utf-8')
+
+    console.log("After join");
 
     template = template.replace('{{msg}}', message);
 
