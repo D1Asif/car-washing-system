@@ -39,6 +39,12 @@ const BookingSchema = new Schema<TBooking>({
         type: String,
         required: true,
     },
+    paymentStatus: {
+        type: String,
+        enum: ['pending', 'paid', 'canceled'],
+        required: true,
+        default: 'pending'
+    }
 }, { timestamps: true });
 
 export const Booking = model<TBooking>('Booking', BookingSchema);

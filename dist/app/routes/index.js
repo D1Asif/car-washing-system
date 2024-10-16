@@ -11,6 +11,7 @@ var slot_route_1 = require("../modules/slot/slot.route");
 var booking_route_1 = require("../modules/booking/booking.route");
 var mybookings_route_1 = require("../modules/myBookings/mybookings.route");
 var review_route_1 = require("../modules/review/review.route");
+var payment_route_1 = require("../modules/payment/payment.route");
 var router = express_1.default.Router();
 var moduleRoutes = [
     {
@@ -40,6 +41,10 @@ var moduleRoutes = [
     {
         path: "/reviews",
         route: review_route_1.ReviewRoutes
+    },
+    {
+        path: "/payment",
+        route: payment_route_1.PaymentRoutes
     },
 ];
 moduleRoutes.forEach(function (route) { return router.use(route.path, route.route); });

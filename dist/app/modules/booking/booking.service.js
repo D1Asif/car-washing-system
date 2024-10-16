@@ -47,8 +47,10 @@ var booking_model_1 = require("./booking.model");
 var slot_model_1 = require("../slot/slot.model");
 var mongoose_1 = __importDefault(require("mongoose"));
 var user_model_1 = require("../user/user.model");
+var payment_util_1 = require("../payment/payment.util");
+var crypto_1 = __importDefault(require("crypto"));
 var createBookingIntoDB = function (payload) { return __awaiter(void 0, void 0, void 0, function () {
-    var service, slot, session, newBooking, updatedSlot, updatedBooking, err_1;
+    var service, slot, session, newBooking, updatedSlot, updatedBooking, paymentData, paymentInfo, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, service_model_1.Service.findById(payload.service)];
@@ -74,7 +76,7 @@ var createBookingIntoDB = function (payload) { return __awaiter(void 0, void 0, 
                 session = _a.sent();
                 _a.label = 4;
             case 4:
-                _a.trys.push([4, 9, 11, 13]);
+                _a.trys.push([4, 10, 12, 14]);
                 session.startTransaction();
                 return [4 /*yield*/, booking_model_1.Booking.create([payload], { session: session })];
             case 5:
@@ -91,18 +93,29 @@ var createBookingIntoDB = function (payload) { return __awaiter(void 0, void 0, 
                         .populate("slot")];
             case 8:
                 updatedBooking = _a.sent();
-                return [2 /*return*/, updatedBooking];
+                paymentData = {
+                    transactionId: crypto_1.default.randomUUID(),
+                    amount: (updatedBooking === null || updatedBooking === void 0 ? void 0 : updatedBooking.service).price.toString(),
+                    customerName: (updatedBooking === null || updatedBooking === void 0 ? void 0 : updatedBooking.customer).name,
+                    customerEmail: (updatedBooking === null || updatedBooking === void 0 ? void 0 : updatedBooking.customer).email,
+                    customerPhone: (updatedBooking === null || updatedBooking === void 0 ? void 0 : updatedBooking.customer).phone,
+                    bookingId: updatedBooking._id.toString()
+                };
+                return [4 /*yield*/, (0, payment_util_1.payment)(paymentData)];
             case 9:
+                paymentInfo = _a.sent();
+                return [2 /*return*/, paymentInfo];
+            case 10:
                 err_1 = _a.sent();
                 return [4 /*yield*/, session.abortTransaction()];
-            case 10:
+            case 11:
                 _a.sent();
                 throw err_1;
-            case 11: return [4 /*yield*/, session.endSession()];
-            case 12:
+            case 12: return [4 /*yield*/, session.endSession()];
+            case 13:
                 _a.sent();
                 return [7 /*endfinally*/];
-            case 13: return [2 /*return*/];
+            case 14: return [2 /*return*/];
         }
     });
 }); };

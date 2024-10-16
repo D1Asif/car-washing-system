@@ -20,6 +20,8 @@ const createBooking = catchAsync(async (req, res) => {
 
     const result = await BookingServices.createBookingIntoDB(payload);
 
+    // payment
+
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,

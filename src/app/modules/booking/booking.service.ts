@@ -6,6 +6,10 @@ import { Booking } from "./booking.model";
 import { Slot } from "../slot/slot.model";
 import mongoose from "mongoose";
 import { User } from "../user/user.model";
+import { payment } from "../payment/payment.util";
+import { TService } from "../service/service.interface";
+import { TUser } from "../user/user.interface";
+import crypto from "crypto";
 
 const createBookingIntoDB = async (payload: TBooking) => {
     const service = await Service.findById(payload.service);
@@ -48,7 +52,18 @@ const createBookingIntoDB = async (payload: TBooking) => {
             .populate("customer")
             .populate("slot")
 
-        return updatedBooking;
+        const paymentData = {
+            transactionId: crypto.randomUUID(),
+            amount: (updatedBooking?.service as unknown as TService).price.toString(),
+            customerName: (updatedBooking?.customer as unknown as TUser).name,
+            customerEmail: (updatedBooking?.customer as unknown as TUser).email,
+            customerPhone: (updatedBooking?.customer as unknown as TUser).phone,
+            bookingId: updatedBooking!._id.toString()
+        }
+
+        const paymentInfo = await payment(paymentData);
+
+        return paymentInfo;
 
     } catch (err) {
         await session.abortTransaction();
@@ -56,8 +71,6 @@ const createBookingIntoDB = async (payload: TBooking) => {
     } finally {
         await session.endSession();
     }
-
-
 };
 
 const getAllBookingsFromDB = async () => {

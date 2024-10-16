@@ -12,4 +12,5 @@ export type TBooking = {
   vehicleModel: string;         // Model or variant of the vehicle
   manufacturingYear: number;    // Manufacturing year of the vehicle
   registrationPlate: string;    // Unique registration number assigned to the vehicle
+  paymentStatus: 'pending' | 'paid' | 'canceled';
 };

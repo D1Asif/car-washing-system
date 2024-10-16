@@ -40,5 +40,11 @@ var BookingSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
+    paymentStatus: {
+        type: String,
+        enum: ['pending', 'paid', 'canceled'],
+        required: true,
+        default: 'pending'
+    }
 }, { timestamps: true });
 exports.Booking = (0, mongoose_1.model)('Booking', BookingSchema);

@@ -74,6 +74,7 @@ var createBooking = (0, catchAsync_1.default)(function (req, res) { return __awa
                 return [4 /*yield*/, booking_service_1.BookingServices.createBookingIntoDB(payload)];
             case 2:
                 result = _b.sent();
+                // payment
                 (0, sendResponse_1.default)(res, {
                     statusCode: http_status_1.default.OK,
                     success: true,
